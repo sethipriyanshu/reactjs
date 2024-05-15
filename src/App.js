@@ -1,19 +1,23 @@
 import './App.css';
 
 function App() {
-  const users = [
-    {name: "priyanshu", age: 19},
-    {name: "Seth", age: 20}
+  const planets = [
+    {name: "Mars", isGasPlanet: false},
+    {name: "Earth", isGasPlanet: false},
+    {name: "Jupiter", isGasPlanet: true},
+    {name: "Venus", isGasPlanet: false},
+    {name: "Neptune", isGasPlanet: true},
+    {name: "Uranus", isGasPlanet: true}
+
   ]
   return(
      <div className="App">
-      {users.map((user, key) => {
-        return <User name = {user.name} age={user.age}/>
+      {planets.map((planet, key) => {
+        if (planet.isGasPlanet) return <h1>{planet.name}</h1>;
       })}
      </div>
   );
 }
-const User = (props) => {
-  return <div>{props.name}{props.age}</div>
-}
+
 export default App;
+
