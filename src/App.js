@@ -14,11 +14,21 @@ function App() {
     setToDoList(newToDoList);
   }
 
+  function checkValidity(task){
+    return task !== newtask;
+  }
+
+  const removeItem = () =>{
+    const newToDoList = todolist.filter(checkValidity);
+    setToDoList(newToDoList);
+  }
+
   return (
     <div className="App">
       <div className='addTask'>
         <input onChange={changeInput} />
         <button onClick={addItem}>Add Task</button>
+        <button onClick={removeItem}>Remove Task</button>
       </div>
       <div className='list'>
         {todolist.map((task, index) => (
