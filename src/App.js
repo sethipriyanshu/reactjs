@@ -9,28 +9,42 @@ function App() {
     setNewTask(event.target.value);
   }
 
-  const addItem = () =>{
-    setToDoList([...todolist, newtask]);
-  }
+  const addItem = () => {
+    const task = {
+      id: todolist.length === 0 ? 1 : todolist[todolist.length - 1].id + 1,
+      isCompleted: false,
+      taskname: newtask,
+    };
+    setToDoList([...todolist, task]);
+  };
+  
 
-  function checkValidity(task){
-    return task !== newtask;
-  }
-
-  const removeItem = (task) =>{
-    setToDoList(todolist.filter(checkValidity));
-  }
+  const removeItem = (id) =>{
+    setToDoList(todolist.filter((task) => task.id !== id));
+  };
+  
+  const markCompleted = (id) => {
+    setToDoList(
+      todolist.map((task) => {
+        if (task.id === id) {
+          return { ...task, isCompleted: true }; // Change completed to isCompleted
+        } else {
+          return task;
+        }
+      })
+    );
+  };
+  
 
   return (
     <div className="App">
       <div className='addTask'>
         <input onChange={changeInput} />
         <button onClick={addItem}>Add Task</button>
-        <button onClick={removeItem}>Remove Task</button>
       </div>
       <div className='list'>
         {todolist.map((task, index) => (
-          <div key={index}><button onClick={() => removeItem(task)}>Delete</button>{task}</div>
+          <div key={index} style={{color: task.isCompleted ? "green": "black", fontSize: 24}}><button onClick={() => removeItem(task.id)} className='App-Button'>X</button><button onClick={() => markCompleted(task.id)}>Mark Completed</button>{task.taskname}</div>
         ))}
       </div>
     </div>
